@@ -1,12 +1,43 @@
 'use strict'
+import crypto from 'crypto'
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('user', {
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    username: DataTypes.STRING,
-    salt: DataTypes.STRING,
-    password: DataTypes.STRING
-  }, {})
+  const User = sequelize.define('User', {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true
+    },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    salt: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    }
+  })
   User.associate = function (models) {
     // associations can be defined here
   }
@@ -30,5 +61,6 @@ module.exports = (sequelize, DataTypes) => {
   // hooks
   User.beforeCreate(User.hashPasswordHook.bind(User))
   User.beforeUpdate(User.hashPasswordHook.bind(User))
+  
   return User
 }
