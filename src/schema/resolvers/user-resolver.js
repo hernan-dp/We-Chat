@@ -1,24 +1,13 @@
-import db from '../../models'
+import * as userController from '../../controllers/user-controller'
+import models from '../../models'
 
-export default{
-  
+export default {
   Query: {
-    users: (parent, args,{db}) => db.User.findAll(),
-    user: (parent,{id},{db}) => db.user.findByPk(id)
+    users: (parent, args, { models }) => models.userController.findAll(),
+    user: (parent, { id }, { models }) => models.userController.findByPk(id)
   },
-  Mutation:{
-    createUser: (parent, { firstname, lastname, username, password }, { db }, info) =>
-      db.user.create({
-        firstname: firstname,
-        lastname: lastname,
-        username: username,
-        password: password
-      }),
-    deleteUser: (parent, {id}, { db }, info) =>
-    db.user.destroy({
-      where: {
-        id: id
-      }
-    })
+  Mutation: {
+    createUser: (parent, args) => userController.createUser(args.id),
+    deleteUser: (parent, args) => userController.deleteUser(args.id)
   }
 }
