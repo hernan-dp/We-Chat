@@ -1,0 +1,27 @@
+{
+  "development": {
+    "username": "hernan",
+    "password": "wechat",
+    "database": "wechat",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": 0
+  },
+  "test": {
+    "username": "hernan",
+    "password": "wechat",
+    "database": "wechatest",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": 0
+  },
+  "production": {
+    "username": "hernan",
+    "password": "wechat",
+    "database": "wechatproduction",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": 0
+  }
+}
+
