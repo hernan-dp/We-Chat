@@ -1,12 +1,7 @@
 import models from '../models'
 
-export const createUser = ({ input: data }) => {
-  return models.user.create({
-    firstName: data.firstName,
-    lastName: data.lastName,
-    username: data.username,
-    password: data.password
-  })
+export const createUser = ({ input }) => {
+  return models.user.create(input)
 }
 
 export const deleteUser = (userId) => {
@@ -16,3 +11,13 @@ export const deleteUser = (userId) => {
     }
   })
 }
+
+export const findAllUsers = () => {
+  return models.user.findAll()
+}
+
+export const findUserById = (id) => {
+  return models.user.findByPk(id)
+}
+
+

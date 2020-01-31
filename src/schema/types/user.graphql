@@ -1,9 +1,9 @@
 type User{
   id: ID!
-  firstname: String
-  lastname: String
+  firstname: String!
+  lastname: String!
   username: String!
-  salt: String!
+  salt: String
   password: String!
 }
 
@@ -14,13 +14,12 @@ extend type Query{
 
 extend type Mutation {
   createUser(user: UserInput): User!
-  updateUserUsername(id: ID!, Username: String!): User
   deleteUser(id: ID!): Int
 }
 
 input UserInput {
-  firstname: String
-  lastname: String
+  firstname: String!
+  lastname: String!
   username: String!
   password: String!
 }
