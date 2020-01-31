@@ -5,6 +5,7 @@ export default {
     users: (parent, args) => userController.findAllUsers(),
     user: (parent, { id }) => userController.findUserById(id)
   },
+
   Mutation: {
     createUser: (parent, args) => userController.createUser(args),
     deleteUser: (parent, id) => userController.deleteUser(id)

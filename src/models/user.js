@@ -38,9 +38,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     }
   })
+
   User.associate = function (models) {
     // associations can be defined here
   }
+
   User.prototype.passwordMatches = function (value) {
     return User.encryptPassword(value, this.salt) === this.password
   }
@@ -61,6 +63,6 @@ module.exports = (sequelize, DataTypes) => {
   // hooks
   User.beforeCreate(User.hashPasswordHook.bind(User))
   User.beforeUpdate(User.hashPasswordHook.bind(User))
-  
+
   return User
 }

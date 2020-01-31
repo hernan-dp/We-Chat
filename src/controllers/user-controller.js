@@ -19,5 +19,3 @@ export const findAllUsers = () => {
 export const findUserById = (id) => {
   return models.user.findByPk(id)
 }
-
-
