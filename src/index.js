@@ -1,7 +1,7 @@
 import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import { createServer } from 'http'
-
+import models from './models'
 import schema from './schema'
 
 require('dotenv').config()
@@ -14,7 +14,10 @@ const server = new ApolloServer({
   ...schema,
   instrospection: true,
   playground: true,
-  tracing: true
+  tracing: true,
+  context: {
+    models
+  }
 })
 
 server.applyMiddleware({ app })

@@ -1,7 +1,7 @@
 'use strict'
 import crypto from 'crypto'
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+  const User = sequelize.define('user', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
   User.hashPasswordHook = async function (user) {
     if (!user.password || !user.changed('password')) return user
     user.salt = this.getRandomSalt()
-    user.password = await User.getEncryptedPassword(user.password, user.salt)
+    user.password = await User.encryptPassword(user.password, user.salt)
   }
 
   User.getRandomSalt = function (bytes = 16) {
@@ -61,8 +61,7 @@ module.exports = (sequelize, DataTypes) => {
     return crypto.scryptSync(plainPassword, salt, 64).toString('hex')
   }
   // hooks
-  User.beforeCreate(User.hashPasswordHook.bind(User))
-  User.beforeUpdate(User.hashPasswordHook.bind(User))
+  User.beforeValidate(User.hashPasswordHook.bind(User))
 
   return User
 }

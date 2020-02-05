@@ -2,12 +2,12 @@ import * as userController from '../../controllers/user-controller'
 
 export default {
   Query: {
-    users: () => userController.findAllUsers(),
-    user: ({ id }) => userController.findUserById(id)
+    users: userController.findAllUsers,
+    user: userController.findUserById
   },
 
   Mutation: {
-    createUser: (args) => userController.createUser(args),
-    deleteUser: (id) => userController.deleteUser(id)
+    createUser: userController.createUser,
+    deleteUser: userController.deleteUser
   }
 }
