@@ -5,7 +5,10 @@
     "database": "wechat",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "operatorsAliases": 0
+    "operatorsAliases": 0,
+    "define": {
+      "freezeTableName": true
+    }
   },
   "test": {
     "username": "hernan",
