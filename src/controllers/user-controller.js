@@ -15,3 +15,7 @@ export const findAllUsers = (obj, args, { models }) => {
 export const findUserById = (_, { id }, { models }) => {
   return models.user.findByPk(id)
 }
+
+export const signIn = async (_, { username, email }, { models }) => {
+}
+

@@ -15,6 +15,7 @@ extend type Query{
 extend type Mutation {
   createUser(input: UserInput!): User!
   deleteUser(id: ID!): Boolean!
+  signin(data: SigninInput!): AuthenticationResult!
 }
 
 input UserInput {
@@ -22,4 +23,15 @@ input UserInput {
   lastName: String!
   username: String!
   password: String!
+}
+
+type SigninInput {
+  username: String!
+  password: String!
+}
+
+type AuthenticationResult {
+  user: User
+  jwt: String
+  authError: String
 }
