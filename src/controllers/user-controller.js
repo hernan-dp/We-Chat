@@ -22,8 +22,8 @@ export const signUp = async (_, input, { models }) => {
   const user = await models.user.findOne({ where: { username: input.username }}) 
   if (!user){
     user = await models.user.createUser({ input })
-    const secret = process.env.JWT_SECRET
-    const token = jwt.sign({ sub: user.id }, secret, { exp: '10d' } )
+    const secret = process.env.JWT_SECRET;
+    const token = jwt.sign({ sub: user.id }, secret, { exp: '10d' } );
     return {
       token,
       user,
