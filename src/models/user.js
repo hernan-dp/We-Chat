@@ -63,5 +63,9 @@ module.exports = (sequelize, DataTypes) => {
   // hooks
   User.beforeValidate(User.hashPasswordHook.bind(User))
 
+  User.findUserByUsername = function (username) {
+    return User.findOne({where: { username } })
+  }
+  
   return User
 }
