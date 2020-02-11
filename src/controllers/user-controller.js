@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
 export const createUser = (_, { input }, { models }) => {
-  return models.user.create(input)  
+  return models.user.create(input)
 }
 
 export const deleteUser = (_, { id }, { models }) => {
@@ -19,17 +19,16 @@ export const findUserById = (_, { id }, { models }) => {
 }
 
 export const signUp = async (_, data, { models }) => {
-  const user = await models.user.findOne({ where: { username: input.username }}) 
-  if (!user){
+  let user = await models.user.findOne({ where: { username: data.username } })
+  if (!user) {
     user = await models.user.createUser({ data })
-    const secret = process.env.JWT_SECRET;
-    const token = jwt.sign({ sub: user.id }, secret, { exp: '10d' } );
+    const secret = process.env.JWT_SECRET
+    const token = jwt.sign({ sub: user.id }, secret, { exp: '10d' })
     return {
       token,
-      user,
+      user
     }
-  }
-  else {
-    throw new Error('Usuario ya existente');
+  } else {
+    if (user) throw new Error('Username already in use')
   }
 }
