@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
 export const createUser = (_, { input }, { models }) => {
-  return models.user.create(input)  
+  return models.user.create(input)
 }
 
 export const deleteUser = (_, { id }, { models }) => {
@@ -19,17 +19,15 @@ export const findUserById = (_, { id }, { models }) => {
 }
 
 export const signIn = async (_, { data }, { models }) => {
-  const user =  models.user.findUserByUsername( data.username )
-  if (user){
-    const secret = process.env.JWT_SECRET;
-    const token = jwt.sign({ sub: user.id }, secret);
+  const user = models.user.findUserByUsername(data.username)
+  if (user) {
+    const secret = process.env.JWT_SECRET
+    const token = jwt.sign({ sub: user.id }, secret)
     return (
       user,
       token
     )
-  }
-  else {
-    throw new Error ('El usuario no existe')
+  } else {
+    throw new Error('Username or password incorrect')
   }
 }
-

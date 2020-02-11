@@ -9,6 +9,6 @@ export default {
   Mutation: {
     createUser: userController.createUser,
     deleteUser: userController.deleteUser,
-    signin: user.Controller.signIn
+    signin: userController.signIn
   }
 }
