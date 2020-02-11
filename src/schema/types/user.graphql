@@ -38,5 +38,5 @@ type AuthenticationResult {
 }
 
 type Mutation {
-  signup(data: SignupInput!): AuthenticationResult!
+  signUp(data: SignupInput!): AuthenticationResult!
 }

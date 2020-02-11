@@ -18,7 +18,7 @@ export const findUserById = (_, { id }, { models }) => {
   return models.user.findByPk(id)
 }
 
-export const signup = async (_, input, { models }) => {
+export const signUp = async (_, input, { models }) => {
   const user = await models.user.findOne({ where: { username: input.username }}) 
   if (!user){
     user = await models.user.createUser({ input })
