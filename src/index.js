@@ -3,10 +3,28 @@ import { ApolloServer } from 'apollo-server-express'
 import { createServer } from 'http'
 import models from './models'
 import schema from './schema'
+import passport from 'passport'
+import { Strategy, ExtractJwt } from 'passport-jwt'
 
 require('dotenv').config()
 
 const port = process.env.PORT || 3001
+
+const opts = {}
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
+opts.secretOrKey = process.env.JWT_SECRET
+passport.use(new Strategy(opts, function (JWT_PAYLOAD, done) {
+  models.user.findOne({ id: JWT_PAYLOAD.SUB }, function (err, user) {
+    if (err) {
+      return done(err, false)
+    }
+    if (user) {
+      return done(null, user)
+    } else {
+      return done(null, false)
+    }
+  })
+}))
 
 const app = express()
 

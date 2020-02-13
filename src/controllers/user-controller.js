@@ -23,7 +23,7 @@ export const signIn = async (_, { data }, { models }) => {
   if (!user) {
     throw new Error('Username or password incorrect')
   }
-  const valid = await models.users.passwordMatches(data.password)
+  const valid = await user.passwordMatches(data.password)
   if (!valid) {
     throw new Error('Username or password incorrect')
   }
