@@ -60,8 +60,12 @@ module.exports = (sequelize, DataTypes) => {
   User.encryptPassword = function (plainPassword, salt) {
     return crypto.scryptSync(plainPassword, salt, 64).toString('hex')
   }
-  // hooks
+
   User.beforeValidate(User.hashPasswordHook.bind(User))
+
+  User.findUserByUsername = function (username) {
+    return User.findOne({ where: { username } })
+  }
 
   return User
 }
