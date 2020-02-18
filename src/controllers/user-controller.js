@@ -1,5 +1,7 @@
+import jwt from 'jsonwebtoken'
+
 export const createUser = (_, { input }, { models }) => {
-  return models.user.create(input)  
+  return models.user.create(input)
 }
 
 export const deleteUser = (_, { id }, { models }) => {
@@ -14,4 +16,21 @@ export const findAllUsers = (obj, args, { models }) => {
 
 export const findUserById = (_, { id }, { models }) => {
   return models.user.findByPk(id)
+}
+
+export const signIn = async (_, { data }, { models }) => {
+  const user = models.user.findUserByUsername(data.username)
+  if (!user) {
+    throw new Error('Username or password incorrect')
+  }
+  const valid = await user.passwordMatches(data.password)
+  if (!valid) {
+    throw new Error('Username or password incorrect')
+  }
+  const secret = process.env.JWT_SECRET
+  const token = jwt.sign({ sub: user.id }, secret)
+  return {
+    user,
+    token
+  }
 }
