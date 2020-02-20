@@ -24,6 +24,7 @@
     "http": "0.0.0",
     "lodash": "^4.17.15",
     "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pg": "^7.17.1",
     "pg-hstore": "^2.3.3",

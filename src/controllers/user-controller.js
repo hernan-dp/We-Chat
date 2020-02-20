@@ -59,3 +59,7 @@ export const signIn = async (_, { data }, { models }) => {
     token
   }
 }
+
+export const userlogged = async (_, _, { req }) => {
+  return req.user
+}
