@@ -18,7 +18,7 @@ passport.use(new Strategy({
   try {
     req.user = await User.findByPk(payload.sub)
   } catch (error) {
-    throw Error(error)
+    throw (error)
   }
 }))
 
@@ -31,7 +31,6 @@ const server = new ApolloServer({
   tracing: true,
   context: ({ req }) => {
     const user = req.user
-    if (!user) throw new Error('you must be logged in')
     return { user }
   },
   models

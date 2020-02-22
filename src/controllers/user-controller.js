@@ -60,6 +60,6 @@ export const signIn = async (_, { data }, { models }) => {
   }
 }
 
-export const userlogged = async (_, _, { req }) => {
+export const userlogged = (_, _, { req }) => {
   return req.user
 }

@@ -11,7 +11,6 @@ export default {
     createUser: userController.createUser,
     deleteUser: userController.deleteUser,
     signup: userController.signUp,
-    signin: userController.signIn,
-
+    signin: userController.signIn
   }
 }
