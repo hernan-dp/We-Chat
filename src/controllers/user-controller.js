@@ -31,16 +31,6 @@ export const signUp = async (_, data, { models }) => {
   } else {
     if (user) throw new Error('Username already in use')
   }
-  const valid = await models.users.passwordMatches(data.password)
-  if (!valid) {
-    throw new Error('Username or password incorrect')
-  }
-  const secret = process.env.JWT_SECRET
-  const token = jwt.sign({ sub: user.id }, secret)
-  return {
-    user,
-    token
-  }
 }
 
 export const signIn = async (_, { data }, { models }) => {
