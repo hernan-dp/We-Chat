@@ -16,13 +16,11 @@ extend type Query{
 extend type Mutation {
   createUser(input: UserInput!): User!
   deleteUser(id: ID!): Boolean!
-  signin(data: SigninInput!): AuthenticationResult!
-  signUp(data: SignupInput!): AuthenticationResult!
+  signin(data: UserInput!): AuthenticationResult!
+  signup(data: SignupInput!): AuthenticationResult!
 }
 
 input UserInput {
-  firstName: String!
-  lastName: String!
   username: String!
   password: String!
 }

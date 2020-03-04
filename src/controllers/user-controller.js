@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+import { jwt } from 'jsonwebtoken'
 
 export const createUser = (_, { input }, { models }) => {
   return models.user.create(input)
@@ -50,6 +50,6 @@ export const signIn = async (_, { data }, { models }) => {
   }
 }
 
-export const userlogged = (_, _, { req }) => {
+export const userlogged = (_, { req }) => {
   return req.user
 }

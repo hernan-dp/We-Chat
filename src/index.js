@@ -13,7 +13,7 @@ const port = process.env.PORT || 3001
 
 passport.use(new Strategy({
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.JWT_SECRET
+  secretOrKey: process.env.JWT_SECRET || "secret"
 }, async (payload, req) => {
   try {
     req.user = await User.findByPk(payload.sub)
