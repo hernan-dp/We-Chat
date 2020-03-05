@@ -13,13 +13,9 @@ const port = process.env.PORT || 3001
 
 passport.use(new Strategy({
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.JWT_SECRET || "secret"
+  secretOrKey: process.env.JWT_SECRET
 }, async (payload, req) => {
-  try {
-    req.user = await User.findByPk(payload.sub)
-  } catch (error) {
-    throw (error)
-  }
+  req.user = await User.findByPk(payload.sub)
 }))
 
 const app = express()
@@ -31,9 +27,9 @@ const server = new ApolloServer({
   tracing: true,
   context: ({ req }) => {
     const user = req.user
-    return { user }
-  },
-  models
+    return { user, models }
+  }
+
 })
 
 server.applyMiddleware({ app })

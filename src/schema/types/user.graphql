@@ -13,14 +13,22 @@ extend type Query{
   currentUser: User
 }
 
+
 extend type Mutation {
   createUser(input: UserInput!): User!
   deleteUser(id: ID!): Boolean!
-  signin(data: UserInput!): AuthenticationResult!
+  signin(data: SigninInput!): AuthenticationResult!
   signup(data: SignupInput!): AuthenticationResult!
 }
 
 input UserInput {
+  firstName:String!
+  lastName:String!
+  username: String!
+  password: String!
+}
+
+input SigninInput {
   username: String!
   password: String!
 }
@@ -32,10 +40,6 @@ input SignupInput {
   password: String!
 }
 
-type SigninInput {
-  username: String!
-  password: String!
-}
 
 type AuthenticationResult {
   user: User
