@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken'
 
 export const createUser = (_, { input }, { models }) => {
-  console.log(input)
   return models.user.create(input)
 }
 
