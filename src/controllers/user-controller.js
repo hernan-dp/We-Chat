@@ -22,12 +22,12 @@ export const findUserById = (_, { id }, { models }) => {
 export const signUp = async (_, { data }, { models }) => {
   let user = await models.user.findOne({ where: { username: data.username } })
   if (!user) {
-    user = await models.user.create(data)
+    const createduser = await models.user.create(data)
     const secret = process.env.JWT_SECRET
-    const token = jwt.sign({ sub: user.id }, secret, { expiresIn: '10d' })
+    const token = jwt.sign({ sub: createduser.id }, secret, { expiresIn: '10d' })
     return {
-      token,
-      user
+      user: createduser,
+      jwt: token
     }
   } else {
     if (user) throw new Error('Username already in use')
@@ -44,10 +44,10 @@ export const signIn = async (_, { data }, { models }) => {
     throw new Error('Username or password incorrect')
   }
   const secret = process.env.JWT_SECRET
-  const token = jwt.sign({ sub: user.id }, secret)
+  const token = jwt.sign({ sub: user.id }, secret, { expiresIn: '10d' })
   return {
-    user,
-    token
+    user: user,
+    jwt: token
   }
 }
 
