@@ -4,7 +4,7 @@ export default {
   Query: {
     users: userController.findAllUsers,
     user: userController.findUserById,
-    currentUser: userController.userlogged 
+    currentUser: userController.userlogged
   },
 
   Mutation: {
