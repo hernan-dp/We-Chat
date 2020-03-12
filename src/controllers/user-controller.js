@@ -51,6 +51,5 @@ export const signIn = async (_, { data }, { models }) => {
 }
 
 export const userlogged = (_, id, { user }) => {
-  console.log(user)
   return user
 }
