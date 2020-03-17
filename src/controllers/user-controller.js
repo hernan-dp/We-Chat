@@ -19,7 +19,7 @@ export const findUserById = (_, { id }, { models }) => {
 }
 
 export const signUp = async (_, { data }, { models }) => {
-  let user = await models.user.findOne({ where: { username: data.username } })
+  const user = await models.user.findOne({ where: { username: data.username } })
   if (!user) {
     const createduser = await models.user.create(data)
     const secret = process.env.JWT_SECRET
@@ -50,6 +50,6 @@ export const signIn = async (_, { data }, { models }) => {
   }
 }
 
-export const userlogged = (_, { req }) => {
-  return req.user
+export const userlogged = (_, id, { user }) => {
+  return user
 }

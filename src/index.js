@@ -5,7 +5,6 @@ import models from './models'
 import schema from './schema'
 import passport from 'passport'
 import { Strategy, ExtractJwt } from 'passport-jwt'
-import User from './models/user'
 
 require('dotenv').config()
 
@@ -14,22 +13,32 @@ const port = process.env.PORT || 3001
 passport.use(new Strategy({
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.JWT_SECRET
-}, async (payload, req) => {
-  req.user = await User.findByPk(payload.sub)
+}, async (payload, done) => {
+  const user = await models.user.findByPk(payload.sub)
+  done(null, user)
 }))
 
+passport.initialize()
+
 const app = express()
+
+app.use((req, res, next) => {
+  passport.authenticate('jwt', { session: false }, (err, user, info) => {
+    if (err) {
+      next(err)
+    } else {
+      req.user = user || null
+      next()
+    }
+  })(req, res, next)
+})
 
 const server = new ApolloServer({
   ...schema,
   instrospection: true,
   playground: true,
   tracing: true,
-  context: ({ req }) => {
-    const user = req.user
-    return { user, models }
-  }
-
+  context: ({ req }) => ({ models, user: req.user })
 })
 
 server.applyMiddleware({ app })
