@@ -5,6 +5,8 @@ import models from './models'
 import schema from './schema'
 import passport from 'passport'
 import { Strategy, ExtractJwt } from 'passport-jwt'
+import { execute, subscribe } from 'graphql'
+import { SubscriptionServer } from 'subscriptions-transport-ws'
 
 require('dotenv').config()
 
@@ -60,4 +62,12 @@ httpServer.listen({ port }, () => {
   console.log(
     `Subscriptions ready at ws://localhost:${port}${server.subscriptionsPath}`
   )
+  new SubscriptionServer({
+    execute,
+    subscribe,
+    schema,
+  }, {
+    server: httpServer,
+    path: '/subscriptions',
+  });
 })
