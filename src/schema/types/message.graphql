@@ -11,7 +11,7 @@ input MessageInput {
 }
 
 extend type Mutation {
-  sendMessage(sender: String, channel: String, text: String!): Message!
+  sendMessage(input: MessageInput!): Message!
 }
 
 extend type Subscription {
