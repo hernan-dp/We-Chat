@@ -53,3 +53,9 @@ export const signIn = async (_, { data }, { models }) => {
 export const userlogged = (_, id, { user }) => {
   return user
 }
+
+export const sendMessage = (_, { sender, channel, text}, { pubsub }) => {
+  const message = { sender, channel, text}
+  pubsub.publish(channel, { message })
+  return message
+}

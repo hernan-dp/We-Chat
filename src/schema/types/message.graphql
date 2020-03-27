@@ -1,0 +1,19 @@
+type Message {    
+  sender: String
+  channel: String
+  text: String!
+}
+
+input MessageInput {
+  sender: String
+  channel: String
+  text: String!
+}
+
+extend type Mutation {
+  sendMessage(sender: String, channel: String, text: String!): Message!
+}
+
+extend type Subscription {
+  message(channel: String!): Message!
+}

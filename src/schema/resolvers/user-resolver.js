@@ -11,6 +11,15 @@ export default {
     createUser: userController.createUser,
     deleteUser: userController.deleteUser,
     signup: userController.signUp,
-    signin: userController.signIn
+    signin: userController.signIn,
+    sendMessage: userController.sendMessage
+  },
+
+  Subscription: {
+    message: {
+      subscribe: (_, {channel}, { pubsub }) => {
+        return pubsub.asyncIterator(channel)
+      }
+    }
   }
 }
