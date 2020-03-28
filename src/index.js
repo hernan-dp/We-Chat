@@ -62,12 +62,4 @@ httpServer.listen({ port }, () => {
   console.log(
     `Subscriptions ready at ws://localhost:${port}${server.subscriptionsPath}`
   )
-  new SubscriptionServer({
-    execute,
-    subscribe,
-    schema,
-  }, {
-    server: httpServer,
-    path: '/subscriptions',
-  });
 })
