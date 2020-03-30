@@ -5,8 +5,6 @@ import models from './models'
 import schema from './schema'
 import passport from 'passport'
 import { Strategy, ExtractJwt } from 'passport-jwt'
-import { execute, subscribe } from 'graphql'
-import { SubscriptionServer } from 'subscriptions-transport-ws'
 
 require('dotenv').config()
 
@@ -44,11 +42,11 @@ const server = new ApolloServer({
   tracing: true,
   context: ({ req, connection }) => {
     if (connection) {
-      return {...connection.context, pubsub, models }
+      return { ...connection.context, pubsub, models }
     } else {
-      return ({pubsub, models, user: req.user })
+      return ({ pubsub, models, user: req.user })
     }
-  },
+  }
 })
 
 server.applyMiddleware({ app })

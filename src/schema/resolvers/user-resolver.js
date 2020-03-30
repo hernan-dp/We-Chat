@@ -17,7 +17,7 @@ export default {
 
   Subscription: {
     message: {
-      subscribe: (_, {channel}, { pubsub }) => {
+      subscribe: (_, { channel }, { pubsub }) => {
         return pubsub.asyncIterator(channel)
       }
     }
