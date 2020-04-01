@@ -1,5 +1,5 @@
 import express from 'express'
-import { ApolloServer } from 'apollo-server-express'
+import { ApolloServer, PubSub } from 'apollo-server-express'
 import { createServer } from 'http'
 import models from './models'
 import schema from './schema'
@@ -33,12 +33,20 @@ app.use((req, res, next) => {
   })(req, res, next)
 })
 
+const pubsub = new PubSub()
+
 const server = new ApolloServer({
   ...schema,
   instrospection: true,
   playground: true,
   tracing: true,
-  context: ({ req }) => ({ models, user: req.user })
+  context: ({ req, connection }) => {
+    if (connection) {
+      return { ...connection.context, pubsub, models }
+    } else {
+      return ({ pubsub, models, user: req.user })
+    }
+  }
 })
 
 server.applyMiddleware({ app })
